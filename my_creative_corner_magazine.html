@@ -1,0 +1,906 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { background: #f5f0e8; }
+
+  .magazine {
+    max-width: 680px;
+    margin: 0 auto;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .page {
+    background: white;
+    margin-bottom: 32px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    position: relative;
+  }
+
+  /* ===== COVER PAGE ===== */
+  .cover {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 50%, #e8f5ff 100%);
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-deco {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+  }
+  .cd1 { width: 220px; height: 220px; background: #f59e0b; top: -60px; right: -60px; }
+  .cd2 { width: 160px; height: 160px; background: #ec4899; bottom: -40px; left: -40px; }
+  .cd3 { width: 100px; height: 100px; background: #10b981; top: 40%; left: -30px; }
+  .cd4 { width: 80px; height: 80px; background: #6366f1; top: 10%; left: 20px; }
+  .cd5 { width: 120px; height: 120px; background: #ef4444; bottom: 10%; right: -20px; }
+
+  .cover-flowers {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.5;
+  }
+
+  .cover-badge {
+    background: #f59e0b;
+    color: #7c3d00;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 58px;
+    color: #1a1a2e;
+    line-height: 1.05;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title span { color: #ec4899; }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .cover-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .cover-divider span { font-size: 18px; }
+  .cover-line { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #ec4899); }
+  .cover-line.r { background: linear-gradient(90deg, #ec4899, transparent); }
+
+  .cover-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-tag {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .t1 { background: #fce7f3; color: #9d174d; }
+  .t2 { background: #ede9fe; color: #4c1d95; }
+  .t3 { background: #dcfce7; color: #14532d; }
+  .t4 { background: #fef3c7; color: #78350f; }
+  .t5 { background: #dbeafe; color: #1e3a8a; }
+  .t6 { background: #fee2e2; color: #7f1d1d; }
+  .t7 { background: #ecfdf5; color: #064e3b; }
+  .t8 { background: #fdf4ff; color: #581c87; }
+
+  .cover-name {
+    margin-top: 28px;
+    font-size: 13px;
+    color: #9ca3af;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px dashed #d1d5db;
+    padding-top: 14px;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ===== SECTION PAGES ===== */
+  .page-header {
+    padding: 22px 28px 14px;
+    border-bottom: 2px solid;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-num {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-left: auto;
+  }
+
+  .section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .page-body { padding: 24px 28px 28px; }
+
+  /* Poetry */
+  .poem-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .poem-card {
+    background: #fdf4ff;
+    border: 1.5px solid #e9d5ff;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .poem-card::before {
+    content: '"';
+    position: absolute;
+    top: -8px;
+    left: 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: #c084fc;
+    line-height: 1;
+  }
+
+  .poem-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #581c87;
+    margin-bottom: 12px;
+    padding-top: 8px;
+  }
+
+  .poem-lines { display: flex; flex-direction: column; gap: 3px; }
+
+  .poem-line {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #4b5563;
+    font-style: italic;
+  }
+
+  /* Puzzle */
+  .puzzle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .puzzle-card {
+    border-radius: 12px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .puzzle-type {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .puzzle-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .puzzle-hint {
+    font-size: 12px;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .answer-blank {
+    display: inline-block;
+    width: 80px;
+    height: 2px;
+    background: currentColor;
+    vertical-align: middle;
+    margin: 0 4px;
+    opacity: 0.5;
+  }
+
+  /* Travel Diary */
+  .travel-header {
+    background: linear-gradient(135deg, #0f766e, #0369a1);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .travel-dest {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .travel-tagline {
+    font-size: 13px;
+    opacity: 0.85;
+    font-style: italic;
+  }
+
+  .travel-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #374151;
+  }
+
+  .travel-highlight {
+    background: #ecfdf5;
+    border-left: 3px solid #10b981;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #065f46;
+    font-style: italic;
+  }
+
+  /* Current Issues */
+  .article-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .article-cat {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .article-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .article-body {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  /* Interview */
+  .interview-intro {
+    background: #fef3c7;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #78350f;
+    font-style: italic;
+    border-left: 3px solid #f59e0b;
+  }
+
+  .qa-block { margin-bottom: 16px; }
+
+  .q-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #6366f1;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .a-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ec4899;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .qa-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #374151;
+    padding-left: 12px;
+    border-left: 2px solid #e5e7eb;
+  }
+
+  /* Inspirational */
+  .inspo-hero {
+    background: linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95);
+    border-radius: 14px;
+    padding: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .inspo-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .inspo-author {
+    font-size: 13px;
+    color: #c4b5fd;
+    font-weight: 600;
+  }
+
+  .inspo-story {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #374151;
+  }
+
+  .inspo-lesson {
+    background: #ede9fe;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #4c1d95;
+    font-weight: 600;
+  }
+
+  /* Comic */
+  .comic-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .comic-panel {
+    border: 2.5px solid #1f2937;
+    border-radius: 8px;
+    background: white;
+    overflow: hidden;
+    min-height: 130px;
+    position: relative;
+    padding: 10px;
+  }
+
+  .comic-scene {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1;
+    padding: 8px 0;
+  }
+
+  .speech-bubble {
+    background: white;
+    border: 2px solid #1f2937;
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 4px 0;
+    position: relative;
+    display: inline-block;
+  }
+
+  .panel-caption {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  .comic-title-banner {
+    background: #fef08a;
+    border: 2.5px solid #1f2937;
+    padding: 6px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    border-radius: 4px;
+  }
+
+  /* Best Day */
+  .bestday-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .bestday-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #f59e0b, #ec4899, #6366f1);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 18px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -24px;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .timeline-event {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 3px;
+  }
+
+  .timeline-detail {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .closing-strip {
+    background: linear-gradient(135deg, #ec4899, #f59e0b);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .closing-text {
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+  }
+
+  .closing-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .closing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.6;
+  }
+</style>
+
+<div class="magazine">
+
+  <!-- COVER PAGE -->
+  <div class="page">
+    <div class="cover">
+      <div class="cover-deco cd1"></div>
+      <div class="cover-deco cd2"></div>
+      <div class="cover-deco cd3"></div>
+      <div class="cover-deco cd4"></div>
+      <div class="cover-deco cd5"></div>
+
+      <div class="cover-badge">✦ English Holiday Homework ✦</div>
+
+      <div class="cover-title">My Creative<br><span>Corner</span></div>
+      <div class="cover-subtitle">A Magazine of Words, Ideas & Stories</div>
+
+      <div class="cover-divider">
+        <div class="cover-line"></div>
+        <span>🌸</span>
+        <div class="cover-line r"></div>
+      </div>
+
+      <div class="cover-topics">
+        <span class="cover-tag t1">🎵 Two Poems</span>
+        <span class="cover-tag t2">🧩 Puzzles</span>
+        <span class="cover-tag t3">📰 Current Issues</span>
+        <span class="cover-tag t4">✈️ Travel Diary</span>
+        <span class="cover-tag t5">🎙️ Interview</span>
+        <span class="cover-tag t6">💫 Inspirational Story</span>
+        <span class="cover-tag t7">🎭 Cartoon / Comic</span>
+        <span class="cover-tag t8">☀️ Best Day of My Life</span>
+      </div>
+
+      <div class="cover-name">Class XI &nbsp;·&nbsp; English Subject &nbsp;·&nbsp; 2024–25</div>
+    </div>
+  </div>
+
+  <!-- PAGE 1: TWO POEMS -->
+  <div class="page">
+    <div class="page-header" style="border-color: #e9d5ff;">
+      <div class="section-icon" style="background:#f3e8ff;">🎵</div>
+      <div class="section-title" style="color:#6d28d9;">Two Poems</div>
+      <div class="page-num">Page 01</div>
+    </div>
+    <div class="page-body">
+      <div class="poem-container">
+
+        <div class="poem-card">
+          <div class="poem-title">Nature's Lullaby</div>
+          <div class="poem-lines">
+            <div class="poem-line">The breeze hums soft through silver trees,</div>
+            <div class="poem-line">And mountain streams hum quiet tunes,</div>
+            <div class="poem-line">The stars above share gentle ease,</div>
+            <div class="poem-line">As night unfolds its silver moons.</div>
+            <br>
+            <div class="poem-line">The birds return to their old nests,</div>
+            <div class="poem-line">The sun dips low behind the hill,</div>
+            <div class="poem-line">The world grows calm and slowly rests —</div>
+            <div class="poem-line">The night at last is soft and still.</div>
+          </div>
+        </div>
+
+        <div class="poem-card" style="background:#fff7ed; border-color:#fed7aa;">
+          <div class="poem-title" style="color:#7c2d12;">The Dreamer</div>
+          <div class="poem-lines">
+            <div class="poem-line">I walk through halls of golden thought,</div>
+            <div class="poem-line">Where every dream is dearly bought,</div>
+            <div class="poem-line">I chase the clouds, I touch the sky,</div>
+            <div class="poem-line">I never stop to wonder why.</div>
+            <br>
+            <div class="poem-line">For dreamers know no walls of fear,</div>
+            <div class="poem-line">They see the distant far as near,</div>
+            <div class="poem-line">They paint their worlds in vivid hues —</div>
+            <div class="poem-line">And win the life they dare to choose.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: PUZZLES -->
+  <div class="page">
+    <div class="page-header" style="border-color:#fde68a;">
+      <div class="section-icon" style="background:#fef9c3;">🧩</div>
+      <div class="section-title" style="color:#b45309;">Puzzles</div>
+      <div class="page-num">Page 02</div>
+    </div>
+    <div class="page-body">
+      <div class="puzzle-grid">
+
+        <div class="puzzle-card" style="background:#fef9c3; border:1.5px solid #fde68a;">
+          <div class="puzzle-type" style="color:#d97706;">Riddle</div>
+          <div class="puzzle-q">I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?</div>
+          <div class="puzzle-hint">Answer: _ _ _ _ (Echo)</div>
+        </div>
+
+        <div class="puzzle-card" style="background:#f0f9ff; border:1.5px solid #bae6fd;">
+          <div class="puzzle-type" style="color:#0369a1;">Word Jumble</div>
+          <div class="puzzle-q">Unjumble these words to form a sentence:</div>
+          <div style="font-size:15px; font-weight:800; letter-spacing:2px; margin:10px 0; color:#0c4a6e;">DREAMS / DARE / TO / YOUR / CHASE</div>
+          <div class="puzzle-hint">Answer: Dare to chase your dreams!</div>
+        </div>
+
+        <div class="puzzle-card" style="background:#f0fdf4; border:1.5px solid #bbf7d0;">
+          <div class="puzzle-type" style="color:#166534;">Fill in the Blank</div>
+          <div class="puzzle-q">Complete the proverb:</div>
+          <div style="font-size:14px; margin: 8px 0; color:#14532d; font-weight:700;">"A ______ mind is a devil's workshop."</div>
+          <div class="puzzle-hint">Hint: Opposite of busy ✓</div>
+        </div>
+
+        <div class="puzzle-card" style="background:#fdf2f8; border:1.5px solid #fbcfe8;">
+          <div class="puzzle-type" style="color:#9d174d;">Tongue Twister</div>
+          <div class="puzzle-q">Say this 5 times fast!</div>
+          <div style="font-size:13px; font-weight:700; margin:8px 0; color:#831843; font-style:italic;">"She sells sea shells by the seashore."</div>
+          <div class="puzzle-hint">Time yourself — can you do it? ⏱️</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: CURRENT ISSUES -->
+  <div class="page">
+    <div class="page-header" style="border-color:#bfdbfe;">
+      <div class="section-icon" style="background:#dbeafe;">📰</div>
+      <div class="section-title" style="color:#1d4ed8;">Articles on Current Issues</div>
+      <div class="page-num">Page 03</div>
+    </div>
+    <div class="page-body">
+
+      <div class="article-card">
+        <div class="article-cat" style="color:#dc2626;">Climate Crisis</div>
+        <div class="article-headline">Rising Temperatures: The Urgency of Climate Action</div>
+        <div class="article-body">
+          Climate change is no longer a distant threat — it is a present reality. Scientists worldwide report that global temperatures have risen by over 1.1°C since pre-industrial times. Glaciers are melting, sea levels are rising, and extreme weather events are becoming more frequent. World leaders are under pressure to cut carbon emissions and invest in renewable energy before the damage becomes irreversible.
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-cat" style="color:#7c3aed;">Technology</div>
+        <div class="article-headline">Artificial Intelligence: Promise and Peril in the Modern Age</div>
+        <div class="article-body">
+          Artificial intelligence is transforming every field — from healthcare to education and transportation. AI-powered tools are helping doctors detect diseases earlier, making learning more personalised, and powering self-driving vehicles. Yet experts raise important questions about job displacement, privacy, and the ethical use of AI. The challenge for society is to harness AI's power while ensuring it remains safe and fair for all.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAGE 4: TRAVEL DIARY -->
+  <div class="page">
+    <div class="page-header" style="border-color:#99f6e4;">
+      <div class="section-icon" style="background:#ccfbf1;">✈️</div>
+      <div class="section-title" style="color:#0f766e;">Travel Diary</div>
+      <div class="page-num">Page 04</div>
+    </div>
+    <div class="page-body">
+
+      <div class="travel-header">
+        <div style="font-size:12px; opacity:0.7; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">My Travel Diary</div>
+        <div class="travel-dest">Rishikesh, Uttarakhand</div>
+        <div class="travel-tagline">Where the Himalayas meet the holy Ganga — a journey of a lifetime.</div>
+      </div>
+
+      <div class="travel-body">
+        <p>The morning we set off for Rishikesh, the air smelled of pine and possibility. Our car wound through the hills as mist hung low over the valleys, and I felt a quiet excitement I had never known before.</p>
+
+        <div class="travel-highlight">
+          "Standing at the Lakshman Jhula bridge, watching the river roar below, I understood why people call this place the yoga capital of the world."
+        </div>
+
+        <p>We spent our first evening at the Ganga aarti near Triveni Ghat. Hundreds of oil lamps floated on the dark water, flickering orange and gold. The chanting echoed off the mountains. Time seemed to stop.</p>
+
+        <p style="margin-top:12px;">The next day we tried white-water rafting — twelve kilometres of pure, screaming joy. Every wave was a surprise, every calm stretch was a chance to breathe. By the end, we were soaked, laughing, and completely alive.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAGE 5: INTERVIEW -->
+  <div class="page">
+    <div class="page-header" style="border-color:#fde68a;">
+      <div class="section-icon" style="background:#fef3c7;">🎙️</div>
+      <div class="section-title" style="color:#d97706;">Interview</div>
+      <div class="page-num">Page 05</div>
+    </div>
+    <div class="page-body">
+
+      <div class="interview-intro">
+        <strong>An Interview with My Grandmother</strong> — She turns 72 this year. She has seen India change across seven decades. This is her story, in her words.
+      </div>
+
+      <div class="qa-block">
+        <div class="q-label">Q — Interviewer</div>
+        <div class="qa-text">Dadi, what was your childhood like? How different was the world back then?</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="a-label">A — Dadi</div>
+        <div class="qa-text">Oh, life was so simple. We had no television, no phones — only each other. We played in open fields, we ate together as a family every single meal, and we found joy in the smallest things. The world was slower, kinder somehow.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q-label">Q — Interviewer</div>
+        <div class="qa-text">What is the one thing you wish today's generation understood better?</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="a-label">A — Dadi</div>
+        <div class="qa-text">Patience. Everything today is instant — food, messages, entertainment. But the best things in life — respect, wisdom, deep love — they only come with time. Never be in a hurry to grow up. Each moment is a gift.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAGE 6: INSPIRATIONAL STORY -->
+  <div class="page">
+    <div class="page-header" style="border-color:#c4b5fd;">
+      <div class="section-icon" style="background:#ede9fe;">💫</div>
+      <div class="section-title" style="color:#6d28d9;">Inspirational Story</div>
+      <div class="page-num">Page 06</div>
+    </div>
+    <div class="page-body">
+
+      <div class="inspo-hero">
+        <div class="inspo-quote">"The man who moves a mountain begins by carrying away small stones."</div>
+        <div class="inspo-author">— Confucius</div>
+      </div>
+
+      <div class="inspo-story">
+        <p><strong>Dashrath Manjhi — The Mountain Man</strong></p>
+        <br>
+        <p>Dashrath Manjhi was a poor labourer from Gehlaur village in Bihar. When his wife Falguni Devi fell ill and died because the nearest hospital was 70 km away — blocked by a mountain — he made a decision that the world called madness.</p>
+        <br>
+        <p>Armed with only a hammer and chisel, he spent 22 years carving a road 110 metres long through a rocky mountain — completely alone. When the road was complete, the distance between two villages shrank from 55 km to just 15 km.</p>
+        <br>
+        <p>Dashrath Manjhi never sought fame. He acted simply because someone had to. His story teaches us that ordinary people, driven by extraordinary purpose, can reshape the world.</p>
+      </div>
+
+      <div class="inspo-lesson">
+        ✦ Lesson: You don't need tools or power to change the world. You only need will, patience, and love.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAGE 7: CARTOON / COMIC -->
+  <div class="page">
+    <div class="page-header" style="border-color:#fca5a5;">
+      <div class="section-icon" style="background:#fee2e2;">🎭</div>
+      <div class="section-title" style="color:#b91c1c;">Cartoon / Comic Strip</div>
+      <div class="page-num">Page 07</div>
+    </div>
+    <div class="page-body">
+      <div class="comic-title-banner">📖 "EXAM SEASON" — A Comic Strip</div>
+      <div class="comic-panels">
+
+        <div class="comic-panel">
+          <div class="comic-scene">😴</div>
+          <div style="text-align:center;">
+            <span class="speech-bubble">Only 3 days left for exams!</span>
+          </div>
+          <div class="panel-caption">Panel 1: The Realisation</div>
+        </div>
+
+        <div class="comic-panel">
+          <div class="comic-scene">😱📚</div>
+          <div style="text-align:center;">
+            <span class="speech-bubble">I'll study ALL night!</span>
+          </div>
+          <div class="panel-caption">Panel 2: The Plan</div>
+        </div>
+
+        <div class="comic-panel">
+          <div class="comic-scene">😪☕</div>
+          <div style="text-align:center;">
+            <span class="speech-bubble">Just 5 more minutes...</span>
+          </div>
+          <div class="panel-caption">Panel 3: 2 AM Reality</div>
+        </div>
+
+        <div class="comic-panel" style="background:#f0fdf4;">
+          <div class="comic-scene">🎉✨</div>
+          <div style="text-align:center;">
+            <span class="speech-bubble" style="border-color:#16a34a; color:#166534;">I passed!! 🎊</span>
+          </div>
+          <div class="panel-caption">Panel 4: The Result</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 8: BEST DAY OF MY LIFE -->
+  <div class="page">
+    <div class="page-header" style="border-color:#fde68a;">
+      <div class="section-icon" style="background:#fef9c3;">☀️</div>
+      <div class="section-title" style="color:#b45309;">The Best Day of My Life</div>
+      <div class="page-num">Page 08</div>
+    </div>
+    <div class="page-body">
+      <p style="font-size:14px; color:#374151; line-height:1.8; margin-bottom:20px;">Some days are so full of joy that they never leave you. For me, that day was the day our school won the inter-school debate competition — and I had been part of the team.</p>
+
+      <div class="bestday-timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#f59e0b; color:#f59e0b;"></div>
+          <div class="timeline-time" style="color:#f59e0b;">7:00 AM</div>
+          <div class="timeline-event">The Morning of Butterflies</div>
+          <div class="timeline-detail">I woke up before my alarm. My notes were everywhere. My heart was racing. But something felt different — electric.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#6366f1; color:#6366f1;"></div>
+          <div class="timeline-time" style="color:#6366f1;">11:00 AM</div>
+          <div class="timeline-event">The Stage, The Lights, The Moment</div>
+          <div class="timeline-detail">When my name was called, I walked to the podium. The hall went quiet. I took one deep breath and began to speak.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#ec4899; color:#ec4899;"></div>
+          <div class="timeline-time" style="color:#ec4899;">2:30 PM</div>
+          <div class="timeline-event">The Announcement</div>
+          <div class="timeline-detail">"And the winner of the inter-school debate is..." — our school's name filled the auditorium. We jumped, we screamed, we cried.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#10b981; color:#10b981;"></div>
+          <div class="timeline-time" style="color:#10b981;">Evening</div>
+          <div class="timeline-event">The Celebration</div>
+          <div class="timeline-detail">We celebrated with ice cream and long conversations. Ma hugged me at the door. That hug made the whole day complete.</div>
+        </div>
+
+      </div>
+      <p style="font-size:14px; color:#6b7280; font-style:italic; margin-top:16px; line-height:1.7;">That day taught me that the moments we work hardest for become the ones we treasure most. I carry it with me everywhere I go.</p>
+    </div>
+
+    <!-- Closing strip -->
+    <div class="closing-strip">
+      <div class="closing-text">Thank You for Reading ✦</div>
+      <div class="closing-dots">
+        <div class="closing-dot"></div>
+        <div class="closing-dot"></div>
+        <div class="closing-dot"></div>
+        <div class="closing-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
